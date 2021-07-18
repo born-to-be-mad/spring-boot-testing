@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import by.dma.springboottesting.domain.Question;
@@ -52,5 +53,33 @@ class QuestionControllerTest {
               .andExpect(jsonPath("$[0].id").value(123))
               .andExpect(jsonPath("$[0].name").value("What is your favorite social network?"))
               .andExpect(jsonPath("$[0].createdAt").value("2020-01-01T00:00:00+03:00"));
+    }
+
+    @Test
+    void shouldForbidAnonymousUsersFetchingQuestionById() throws Exception {
+        this.mockMvc
+                .perform(get("/api/questions/123"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @WithMockUser
+    void shouldAllowAuthenticatedUsersToFetchQuestionById() throws Exception {
+        // given:
+        Question sample = new Question();
+        sample.setId(123L);
+        sample.setSortOrder(2);
+        sample.setName("What is your favorite social network?");
+        sample.setCreatedAt(ZonedDateTime.of(2020, 1, 1, 0, 0, 0, 0,
+                                             ZoneId.of("Europe/Minsk")));
+
+        Mockito.when(service.getQuestionById(123L))
+               .thenReturn(sample);
+
+        this.mockMvc
+                .perform(get("/api/questions/123"))
+                .andExpect(jsonPath("$.id").value(123))
+                .andExpect(jsonPath("$.name").value("What is your favorite social network?"))
+                .andExpect(jsonPath("$.createdAt").value("2020-01-01T00:00:00+03:00"));
     }
 }
