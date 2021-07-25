@@ -22,9 +22,14 @@ public class Question {
     public Question() {
     }
 
-    public Question(Long id, String name) {
-        this.id = id;
+    public Question(String name) {
         this.name = name;
+        this.createdAt = ZonedDateTime.now();
+    }
+
+    public Question(String name, ZonedDateTime createdAt) {
+        this.name = name;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
