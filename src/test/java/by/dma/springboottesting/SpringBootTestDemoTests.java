@@ -2,6 +2,8 @@ package by.dma.springboottesting;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
@@ -48,10 +50,10 @@ class SpringBootTestDemoTests {
     @MockBean
     private QuestionRepository questionRepository;
 
-    @Test
+    @BeforeEach
     void printPortsInUse() {
-        System.out.println(port);
-        System.out.println(managementPort);
+        System.out.println("LocalServerPort:" + port);
+        System.out.println("LocalManagementPort:" + managementPort);
     }
 
     @Test
