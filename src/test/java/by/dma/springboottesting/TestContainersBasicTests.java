@@ -1,7 +1,6 @@
 package by.dma.springboottesting;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -10,8 +9,7 @@ import org.testcontainers.utility.DockerImageName;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testcontainers
-//@SpringBootTest
-class SpringBootTestingApplicationTests {
+class TestContainersBasicTests {
 
     @Container
     static PostgreSQLContainer<?> container =
