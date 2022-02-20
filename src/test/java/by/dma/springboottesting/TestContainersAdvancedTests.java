@@ -2,6 +2,7 @@ package by.dma.springboottesting;
 
 
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -19,15 +20,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Testcontainers
 class TestContainersAdvancedTests {
 
-  @Container
-  static GenericContainer<?> keycloakContainer =
-      new GenericContainer<>(DockerImageName.parse("jboss/keycloak:15.0.2"))
+/*  @Container
+  static GenericContainer<?> container =
+      new GenericContainer<>(DockerImageName.parse("jboss/keycloak:16.1.1"))
           .withExposedPorts(8180)
-          .withStartupTimeout(Duration.ofSeconds(30))
-          .waitingFor(Wait.forHttp("/auth").forStatusCode(HttpStatus.OK.value()));
+          //.withStartupTimeout(Duration.ofSeconds(30))
+          .waitingFor(Wait.forHttp("/auth").forStatusCode(HttpStatus.OK.value())
+                          .withStartupTimeout(Duration.of(7, ChronoUnit.MINUTES))
+          );*/
+
+  @Container
+  static GenericContainer<?> container = new GenericContainer<>(DockerImageName.parse("nginx:1.9.4"))
+      .withExposedPorts(80)
+      .waitingFor(Wait.forHttp("/"));
 
   @Test
   void shouldStartCustomDockerContainer() {
-    assertTrue(keycloakContainer.isRunning());
+    assertTrue(container.isRunning());
   }
 }
