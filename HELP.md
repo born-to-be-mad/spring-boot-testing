@@ -1,5 +1,15 @@
 # Getting Started
 
+## Unit Tests
+A Set of Unit Testing Rules according to [Michael Feathers](https://www.artima.com/weblogs/viewpost.jsp?thread=126923):
+
+A test is not a unit test if it:
+* talks to the database
+* communicates across the network
+* touches the file system
+* can't run at the same time as any of your other unit tests
+* you have to do special things to your environment (such as editing config files) to run it
+
 ## Spring Boot Test Slices
 
 ### Web Layer With @WebMvcTest
