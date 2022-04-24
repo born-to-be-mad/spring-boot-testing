@@ -11,7 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import by.dma.springboottesting.domain.Customer;
+import by.dma.springboottesting.domains.customer.Customer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,28 +19,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Run all integration tests with: mvn failsafe:integration-test failsafe:verify
  */
 @SpringBootTest(
-        webEnvironment = WebEnvironment.RANDOM_PORT,
-        properties = {
-                "spring.security.user.name=admin",
-                "spring.security.user.password=admin#"
-        })
-
+    webEnvironment = WebEnvironment.RANDOM_PORT,
+    properties = {
+        "spring.security.user.name=admin",
+        "spring.security.user.password=admin#"
+    })
 class SpringBootTestDemoReusedContextTests {
 
-    @Autowired
-    private TestRestTemplate testClient;
+  @Autowired
+  private TestRestTemplate testClient;
 
-    @Test
-    void shouldFindQuestionById() {
+  @Test
+  void shouldFindQuestionById() {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth("admin", "admin#");
+    HttpHeaders headers = new HttpHeaders();
+    headers.setBasicAuth("admin", "admin#");
 
-        HttpEntity<Customer> request = new HttpEntity<>(headers);
+    HttpEntity<Customer> request = new HttpEntity<>(headers);
 
-        ResponseEntity<Customer> result = testClient
-                .exchange("/api/questions/1", HttpMethod.GET, request, Customer.class);
+    ResponseEntity<Customer> result = testClient
+        .exchange("/api/questions/1", HttpMethod.GET, request, Customer.class);
 
-        assertEquals(HttpStatus.OK.value(), result.getStatusCodeValue());
-    }
+    assertEquals(HttpStatus.OK.value(), result.getStatusCodeValue());
+  }
 }

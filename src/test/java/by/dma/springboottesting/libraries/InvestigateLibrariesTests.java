@@ -13,7 +13,8 @@ import org.xmlunit.builder.Input;
 import org.xmlunit.diff.DOMDifferenceEngine;
 import org.xmlunit.diff.DifferenceEngine;
 
-import by.dma.springboottesting.repository.CustomerRepository;
+
+import by.dma.springboottesting.domains.customer.CustomerRepository;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
