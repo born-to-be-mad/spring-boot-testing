@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: CI/CD for SPringBott testing application
+name: CI/CD for SpringBoot testing application
 
 on:
   push:
@@ -37,7 +37,9 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       ## Run Maven Tests
       - name: Run Tests
-        run: mvn -B test
+        ## '-B' = run in non-interactive (batch) mode (disables output color)
+        ## run: mvn -B test
+        run: mvn test
 
   ## Second Job: Build and Push
   build-and-push:
