@@ -66,14 +66,17 @@ The following guides illustrate how to use some features concretely:
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
 ## Run with docker
-
-* `docker build -t testing-srv .` to build the image
-* `docker run -p 8080:8080 testing-srv` to run the container
+* `docker pull dma1979/spring-boot-testing:latest` to pull the image from docker hub
+* `docker build -t spring-boot-testing .` to build the image
+* `docker run -p 8080:8080 spring-boot-testing` to run the container
 * `docker stop -t 0 $(docker ps -q)` to stop all running containers
 
-## CI/CD
-Github actions are used for CI/CD. 
 
-* The workflow is defined in `.github/workflows/ci-cd.yml`. The workflow is triggered on push to master and on pull requests. The workflow will build the project, run the tests and push the image to the github container registry.
+## CI/CD
+
+Github actions are used for CI/CD.
+
+* The workflow is defined in `.github/workflows/ci-cd.yml`. The workflow is triggered on push to master and on pull
+  requests. The workflow will build the project, run the tests and push the image to the github container registry.
 * `DOCKER_USERNAME` and `DOCKER_PASSWORD` secrets are required for the workflow to work.
 * `https://hub.docker.com/repository/docker/dma1979/spring-boot-testing` is the docker image repository.
