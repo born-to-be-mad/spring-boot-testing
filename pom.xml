@@ -13,6 +13,18 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-testing</name>
     <description>Demo project for Spring Boot</description>
+    <developers>
+        <developer>
+            <id>born_to_be_mad</id>
+            <name>Dzmitry</name>
+            <email>vinmaster@tut.by</email>
+            <roles>
+                <role>
+                    Engineering Team Lead
+                </role>
+            </roles>
+        </developer>
+    </developers>
     <properties>
         <java.version>11</java.version>
         <testcontainers.version>1.15.3</testcontainers.version>
@@ -119,7 +131,18 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <image>
+                        <name>${project.groupId}/product:${project.version}</name>
+                    </image>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build-image</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!--https://maven.apache.org/surefire/maven-failsafe-plugin/-->
@@ -136,6 +159,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>testing-microservice</finalName>
     </build>
 
 </project>
