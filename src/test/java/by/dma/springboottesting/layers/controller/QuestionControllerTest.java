@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import by.dma.springboottesting.layers.controller.QuestionController;
 import by.dma.springboottesting.layers.model.Question;
 import by.dma.springboottesting.layers.service.QuestionService;
 
@@ -32,7 +31,9 @@ class QuestionControllerTest {
 
     @Test
     void shouldReturnOK() throws Exception {
-        this.mockMvc.perform(get("/api/questions")).andExpect(status().isOk());
+        mockMvc
+            .perform(get("/api/questions"))
+            .andExpect(status().isOk());
     }
 
     @Test
@@ -44,7 +45,8 @@ class QuestionControllerTest {
         sample.setName("What is your favorite social network?");
         sample.setCreatedAt(ZonedDateTime.of(2020, 1, 1, 0, 0, 0, 0,
                                              ZoneId.of("Europe/Minsk")));
-        Mockito.when(service.getAllQuestions()).thenReturn(List.of(sample));
+        Mockito.when(service.getAllQuestions())
+               .thenReturn(List.of(sample));
 
         // when:
         var result = mockMvc.perform(get("/api/questions"));
@@ -58,7 +60,7 @@ class QuestionControllerTest {
 
     @Test
     void shouldForbidAnonymousUsersFetchingQuestionById() throws Exception {
-        this.mockMvc
+        mockMvc
                 .perform(get("/api/questions/123"))
                 .andExpect(status().isUnauthorized());
     }
@@ -77,7 +79,7 @@ class QuestionControllerTest {
         Mockito.when(service.getQuestionById(123L))
                .thenReturn(sample);
 
-        this.mockMvc
+        mockMvc
                 .perform(get("/api/questions/123"))
                 .andExpect(jsonPath("$.id").value(123))
                 .andExpect(jsonPath("$.name").value("What is your favorite social network?"))

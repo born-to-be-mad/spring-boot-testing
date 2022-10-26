@@ -56,6 +56,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--The idea behind this additional dependency (Spring WebFlux) is to get access to the WebClient and the WebTestClient.
+           Having both the Starter for Spring Web MVC and WebFlux on the classpath,
+           Spring Boot assumes we're going to write a blocking application and autoconfigures Tomcat for us.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
