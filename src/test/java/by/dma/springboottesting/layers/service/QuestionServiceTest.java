@@ -14,7 +14,6 @@ import by.dma.springboottesting.layers.model.Question;
 import by.dma.springboottesting.layers.repository.QuestionRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by IntelliJ IDEA.
