@@ -14,12 +14,16 @@ public class TodoClient {
     private final RestTemplate restTemplate;
 
     public TodoClient(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.rootUri("https://jsonplaceholder.typicode.com").setConnectTimeout(
-                Duration.ofSeconds(2)).setReadTimeout(Duration.ofSeconds(2)).build();
+        this.restTemplate = restTemplateBuilder
+                .rootUri("https://jsonplaceholder.typicode.com")
+                .setConnectTimeout(Duration.ofSeconds(2))
+                .setReadTimeout(Duration.ofSeconds(2))
+                .build();
     }
 
     public List<Todo> fetchAllTodos() {
-        return this.restTemplate.exchange("/todos", HttpMethod.GET, null, new ParameterizedTypeReference<List<Todo>>() {
-        }).getBody();
+        return restTemplate
+                .exchange("/todos", HttpMethod.GET, null, new ParameterizedTypeReference<List<Todo>>() {})
+                .getBody();
     }
 }
