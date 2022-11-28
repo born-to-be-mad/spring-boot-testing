@@ -12,6 +12,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+            .mvcMatchers(HttpMethod.GET, "/api/memory").permitAll()
             .mvcMatchers(HttpMethod.GET, "/api/questions").permitAll()
             .mvcMatchers(HttpMethod.GET, "/api/questions/*").authenticated()
             .mvcMatchers(HttpMethod.GET, "/api/customers").permitAll()
