@@ -1,32 +1,25 @@
 package by.dma.springboottesting.layers.client;
 
-import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Component
-public class TodoClient {
-    private final RestTemplate restTemplate;
+import lombok.AllArgsConstructor;
 
-    public TodoClient(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder
-                .rootUri("https://jsonplaceholder.typicode.com")
-                .setConnectTimeout(Duration.ofSeconds(2))
-                .setReadTimeout(Duration.ofSeconds(2))
-                .build();
-    }
+@Component
+@AllArgsConstructor
+public class TodoClient {
+
+    private final RestTemplate todoRestTemplateClient;
 
     public List<Todo> fetchAllTodos() {
-        return restTemplate
-                .exchange("/todos", HttpMethod.GET, null, new ParameterizedTypeReference<List<Todo>>() {})
+        return todoRestTemplateClient
+                .exchange("/todos", HttpMethod.GET, null, new ParameterizedTypeReference<List<Todo>>() {
+
+                })
                 .getBody();
     }
 }
