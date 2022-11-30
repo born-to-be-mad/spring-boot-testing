@@ -38,7 +38,7 @@ class SpringBootTestDemoReusedContextTests {
     HttpEntity<Customer> request = new HttpEntity<>(headers);
 
     ResponseEntity<Customer> result = testClient
-        .exchange("/api/questions/1", HttpMethod.GET, request, Customer.class);
+        .exchange("/api/questions/101", HttpMethod.GET, request, Customer.class);
 
     assertEquals(HttpStatus.OK.value(), result.getStatusCodeValue());
   }
