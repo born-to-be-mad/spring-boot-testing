@@ -8,6 +8,9 @@ import org.testcontainers.utility.DockerImageName;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Testcontainers disrupted the way we write our integration tests by providing external components as Docker containers.
+ */
 @Testcontainers
 class TestContainersBasicTests {
 
