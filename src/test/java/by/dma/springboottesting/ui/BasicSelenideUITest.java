@@ -1,19 +1,15 @@
 package by.dma.springboottesting.ui;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.junit5.ScreenShooterExtension;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.screenshot;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,24 +22,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BasicSelenideUITest {
 
-    @BeforeAll
-    static void configureChromeDriver(@Autowired Environment environment) {
+    @LocalServerPort
+    private Integer port;
 
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments(
-                "--no-sandbox",
-                "--disable-dev-shm-usage",
-                "--headless",
-                "--disable-gpu",
-                "--disable-extensions");
-
-        Configuration.browserCapabilities = chromeOptions;
-        Configuration.reportsFolder = "target/selenide-screenshots";
-
-        // Local server configuration
-        Integer port = environment.getProperty("local.server.port", Integer.class);
-        //Configuration.baseUrl = "http://localhost:" + port;
-    }
+    @RegisterExtension
+    public static ScreenShooterExtension screenShooterExtension = new ScreenShooterExtension()
+            .to("target/selenide-screenshots");
 
     @AfterAll
     static void cleanUp() {
@@ -52,8 +36,11 @@ class BasicSelenideUITest {
 
     @Test
     void shouldAccessSpringInitializerAndGenerateMavenProjectWithJava11() {
-        // Selenide.open("/api/questions");
+        assertThat(port).isPositive();
+
         Selenide.open("https://start.spring.io/");
+        screenshot("spring-io-initial-view");
+
         assertThat(Selenide.title()).isEqualTo("Spring Initializr");
 
 /*         var element = $("label.label").val("Project");
@@ -63,6 +50,6 @@ class BasicSelenideUITest {
 
         $(By.id("submit")).click(); */
 
-        screenshot("basic-selenide-test-post-submit");
+        screenshot("spring-io-final-view");
     }
 }
