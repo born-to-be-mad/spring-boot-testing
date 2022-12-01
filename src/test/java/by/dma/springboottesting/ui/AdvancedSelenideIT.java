@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Testcontainers
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class AdvancedSelenideUITest {
+class AdvancedSelenideIT {
 
     @Container
     static BrowserWebDriverContainer<?> webDriverContainer =

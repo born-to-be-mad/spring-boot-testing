@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2022.11
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class BasicSelenideUITest {
+class BasicSelenideIT {
 
     @RegisterExtension
     public static ScreenShooterExtension screenShooterExtension = new ScreenShooterExtension()
